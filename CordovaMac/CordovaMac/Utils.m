@@ -39,7 +39,7 @@ static Utils* sharedInstance = nil;
     NSString       *filename       = [directoryParts lastObject];
     [directoryParts removeLastObject];
 	
-    NSString *directoryStr = [NSString stringWithFormat:@"%@/%@", kStartFolder, [directoryParts componentsJoinedByString:@"/"]];
+    NSString *directoryStr = [NSString stringWithFormat:@"%@/%@", kCDVStartFolder, [directoryParts componentsJoinedByString:@"/"]];
     return [mainBundle pathForResource:filename
 								ofType:@""
 						   inDirectory:directoryStr];

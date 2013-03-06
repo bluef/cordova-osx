@@ -17,6 +17,6 @@
  under the License.
  */
 
-#define kStartPage      @"index.html"
-#define kStartFolder    @"www"
+#define kCDVStartPage      @"index.html"
+#define kCDVStartFolder    @"www"
 

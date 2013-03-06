@@ -35,7 +35,7 @@
                                                  name:NSWindowDidResizeNotification 
                                                object:[self window]];
 
-    NSURL* fileUrl = [NSURL fileURLWithPath:[[Utils sharedInstance] pathForResource:kStartPage]];
+    NSURL* fileUrl = [NSURL fileURLWithPath:[[Utils sharedInstance] pathForResource:kCDVStartPage]];
         
     [self.contentView.webView setMainFrameURL:[fileUrl description]];
 }

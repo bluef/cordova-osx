@@ -6,9 +6,9 @@
  to you under the Apache License, Version 2.0 (the
  "License"); you may not use this file except in compliance
  with the License.  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing,
  software distributed under the License is distributed on an
  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,17 +17,16 @@
  under the License.
  */
 
-#import <Cocoa/Cocoa.h>
-@class WebView;
+#import "CDVCommandDelegate.h"
 
-@interface CDVBridge : NSObject {
-	
+@class NSViewController;
+@class CDVCommandQueue;
+
+@interface CDVCommandDelegateImpl : NSObject <CDVCommandDelegate>{
+//    @private
+    __weak NSViewController* _viewController;
+    @protected
+    __weak CDVCommandQueue* _commandQueue;
 }
-
-@property (nonatomic, strong) WebView* webView;
-
-- (id) initWithWebView:(WebView*)webView;
-- (void) exec:(NSString*)callbackId withService:(NSString*)service andAction:(NSString*)action andArguments:(NSArray*)arguments;
-
-
+- (id)initWithViewController:(NSViewController*)viewController;
 @end

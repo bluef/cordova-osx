@@ -26,7 +26,7 @@
 	IBOutlet ContentView* contentView;
 }
 
-@property (nonatomic, retain) NSWindow* window;
-@property (nonatomic, retain) ContentView* contentView;
+@property (nonatomic, strong) NSWindow* window;
+@property (nonatomic, strong) ContentView* contentView;
 
 @end

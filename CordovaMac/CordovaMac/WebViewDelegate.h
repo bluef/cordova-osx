@@ -28,9 +28,9 @@
 @interface WebViewDelegate : NSObject {
 }
 
-@property (nonatomic, retain) CDVSound* sound;
-@property (nonatomic, retain) CDVNotification* notification;
-@property (nonatomic, retain) CDVConsole* console;
-@property (nonatomic, retain) CDVBridge* bridge;
+@property (nonatomic, strong) CDVSound* sound;
+@property (nonatomic, strong) CDVNotification* notification;
+@property (nonatomic, strong) CDVConsole* console;
+@property (nonatomic, strong) CDVBridge* bridge;
 
 @end

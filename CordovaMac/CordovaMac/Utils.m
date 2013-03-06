@@ -74,21 +74,21 @@ static Utils* sharedInstance = nil;
     return self;
 }
 
-- (id) retain {
-    return self;
-}
-
-- (unsigned long) retainCount {
-    return UINT_MAX;  // denotes an object that cannot be released
-}
-
-- (oneway void) release {
-    //do nothing
-}
-
-- (id) autorelease {
-    return self;
-}
+//- (id) retain {
+//    return self;
+//}
+//
+//- (unsigned long) retainCount {
+//    return UINT_MAX;  // denotes an object that cannot be released
+//}
+//
+//- (oneway void) release {
+//    //do nothing
+//}
+//
+//- (id) autorelease {
+//    return self;
+//}
 
 
 @end

@@ -17,17 +17,11 @@
  under the License.
  */
 
-#import <Cocoa/Cocoa.h>
-@class WebView;
+#import "CDVAvailability.h"
 
-@interface CDVBridge : NSObject {
-	
-}
-
-@property (nonatomic, strong) WebView* webView;
-
-- (id) initWithWebView:(WebView*)webView;
-- (void) exec:(NSString*)callbackId withService:(NSString*)service andAction:(NSString*)action andArguments:(NSArray*)arguments;
-
-
-@end
+#import "CDVJSON.h"
+#import "CDVDebug.h"
+#import "CDVPluginResult.h"
+#import "CDVInvokedUrlCommand.h"
+#import "CDVPlugin.h"
+#import "CDVDevice.h"

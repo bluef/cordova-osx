@@ -27,7 +27,7 @@
 
 - (void) awakeFromNib
 {
-    self.delegate = [[[WebViewDelegate alloc] init] autorelease];
+    self.delegate = [[WebViewDelegate alloc] init];
     [self.webView setFrameLoadDelegate:self.delegate];
     [self.webView setUIDelegate:self.delegate];
     [self.webView setResourceLoadDelegate:self.delegate];

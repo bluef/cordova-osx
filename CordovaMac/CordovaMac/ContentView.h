@@ -29,7 +29,7 @@
 	
 }
 
-@property (retain) WebView* webView;
-@property (retain) WebViewDelegate* delegate;
+@property (strong) WebView* webView;
+@property (strong) WebViewDelegate* delegate;
 
 @end

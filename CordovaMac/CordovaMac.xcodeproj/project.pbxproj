@@ -151,7 +151,6 @@
 		48B43509152E5E3500906A36 = {
 			isa = PBXGroup;
 			children = (
-				7E79276916E7C8FF002E20B9 /* SystemConfiguration.framework */,
 				48B43537152E5E6B00906A36 /* www */,
 				48B4351E152E5E3500906A36 /* CordovaMac */,
 				48B43517152E5E3500906A36 /* Frameworks */,
@@ -170,6 +169,7 @@
 		48B43517152E5E3500906A36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7E79276916E7C8FF002E20B9 /* SystemConfiguration.framework */,
 				48B43535152E5E4100906A36 /* WebKit.framework */,
 				48B43518152E5E3500906A36 /* Cocoa.framework */,
 				48B4351A152E5E3500906A36 /* Other Frameworks */,

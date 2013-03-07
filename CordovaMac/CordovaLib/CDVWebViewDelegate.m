@@ -18,13 +18,13 @@
  */
 
 
-#import "WebViewDelegate.h"
+#import "CDVWebViewDelegate.h"
 #import "CDVConsole.h"
 #import "CDVBridge.h"
 
-@implementation WebViewDelegate
+@implementation CDVWebViewDelegate
 
-@synthesize sound, notification, console;
+@synthesize console;
 
 - (void) webView:(WebView*)webView windowScriptObjectAvailable:(WebScriptObject*)windowScriptObject
 {
@@ -34,7 +34,7 @@
 	[windowScriptObject setValue:self.console forKey:@"console"];
 	
 	if (self.bridge == nil) {
-        self.bridge = [[CDVBridge alloc] initWithWebView:webView];
+        self.bridge = [[CDVBridge alloc] initWithWebView:webView andViewController:self.viewController];
     }
     [windowScriptObject setValue:self.bridge forKey:@"cordovabridge"];
 }

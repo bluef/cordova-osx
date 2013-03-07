@@ -22,6 +22,5 @@
 #import <Cocoa/Cocoa.h>
 
 #import "Constants.h"
-#import "Utils.h"
 
 #endif

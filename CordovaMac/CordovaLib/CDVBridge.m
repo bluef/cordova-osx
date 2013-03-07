@@ -17,10 +17,13 @@
  under the License.
  */
 
-#import "CDVBridge.h"
 #import <WebKit/WebKit.h>
 #import <AppKit/AppKit.h>
 #import <Foundation/NSJSONSerialization.h>
+#include <objc/message.h>
+
+#import "CDVBridge.h"
+#import "CDVViewController.h"
 
 @implementation CDVBridge
 
@@ -106,10 +109,11 @@
     [win evaluateWebScript:dictionaryKeys];
 }
 
-- (id) initWithWebView:(WebView *)webView
+- (id) initWithWebView:(WebView *)webView andViewController:(CDVViewController*)viewController
 {
     if ((self = [super init]) != nil) {
         self.webView = webView;
+        self.viewController = viewController;
         [self registerJavaScriptHelpers];
     }
     
@@ -125,9 +129,32 @@
     
     // we're just going to assume the webScriptObject passed in is an NSArray
     NSArray* arguments = [self convertWebScriptObjectToNSArray:webScriptObject];
-#pragma unused(arguments)
     
-	NSLog(@"TODO: [%@.%@] flesh out exec to dispatch the commands, possibly re-use iOS code", service, action);
+    CDVInvokedUrlCommand* command = [[CDVInvokedUrlCommand alloc] initWithArguments:arguments callbackId:callbackId className:service methodName:action];
+    
+    if ((command.className == nil) || (command.methodName == nil)) {
+        NSLog(@"ERROR: Classname and/or methodName not found for command.");
+        return;
+    }
+    
+    // Fetch an instance of this class
+    CDVPlugin* obj = [_viewController.commandDelegate getCommandInstance:command.className];
+    
+    if (!([obj isKindOfClass:[CDVPlugin class]])) {
+        NSLog(@"ERROR: Plugin '%@' not found, or is not a CDVPlugin. Check your plugin mapping in config.xml.", command.className);
+        return;
+    }
+
+    // Find the proper selector to call.
+    NSString* methodName = [NSString stringWithFormat:@"%@:", command.methodName];
+    SEL normalSelector = NSSelectorFromString(methodName);
+    if ([obj respondsToSelector:normalSelector]) {
+        // [obj performSelector:normalSelector withObject:command];
+        objc_msgSend(obj, normalSelector, command);
+    } else {
+        // There's no method to call, so throw an error.
+        NSLog(@"ERROR: Method '%@' not defined in Plugin '%@'", methodName, command.className);
+    }
 }
 
 #pragma mark WebScripting Protocol

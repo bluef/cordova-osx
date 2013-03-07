@@ -35,8 +35,8 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         
-        var exec = cordova.require('cordova/exec');
-        exec(null, null, 'MyService', 'MyAction', [1, "two", { 'three': 3, 4: 'four'}]);
+//        var exec = cordova.require('cordova/exec');
+//        exec(null, null, 'Device', 'getDeviceInfo', [1, "two", { 'three': 3, 4: 'four'}]);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

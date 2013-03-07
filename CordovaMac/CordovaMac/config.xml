@@ -27,7 +27,7 @@
     <content src="index.html" />
 
     <plugins>
-        <plugin name="Device" value="CDVDevice" />
+        <plugin name="Device" value="CDVDevice"/>
         <plugin name="NetworkStatus" value="CDVConnection" />
     </plugins>
 

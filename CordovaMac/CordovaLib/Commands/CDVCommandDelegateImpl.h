@@ -19,14 +19,14 @@
 
 #import "CDVCommandDelegate.h"
 
-@class NSViewController;
+@class CDVViewController;
 @class CDVCommandQueue;
 
 @interface CDVCommandDelegateImpl : NSObject <CDVCommandDelegate>{
 //    @private
-    __weak NSViewController* _viewController;
+    __weak CDVViewController* _viewController;
     @protected
     __weak CDVCommandQueue* _commandQueue;
 }
-- (id)initWithViewController:(NSViewController*)viewController;
+- (id)initWithViewController:(CDVViewController*)viewController;
 @end

@@ -17,19 +17,16 @@
  under the License.
  */
 
-#import <Cocoa/Cocoa.h>
-#import <WebKit/WebKit.h>
+#import <Foundation/Foundation.h>
 
-@class WebViewDelegate;
+#define DEG_EPS 0.001
+#define fequal(a,b) (fabs((a) - (b)) < DEG_EPS)
+#define fequalzero(a) (fabs(a) < DEG_EPS)
 
-@interface ContentView : NSView {
-	
-	IBOutlet WebView* webView;
-	WebViewDelegate* delegate;
-	
+@interface CDVUtils : NSObject {
 }
 
-@property (strong) WebView* webView;
-@property (strong) WebViewDelegate* delegate;
++ (float) titleBarHeight:(NSWindow*)aWindow;
++ (NSString*) pathForResource:(NSString*)resourcepath;
 
 @end

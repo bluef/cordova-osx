@@ -21,10 +21,11 @@
 #import "CDVJSON.h"
 #import "CDVCommandQueue.h"
 #import "CDVPluginResult.h"
+#import "CDVViewController.h"
 
 @implementation CDVCommandDelegateImpl
 
-- (id)initWithViewController:(NSViewController*)viewController
+- (id)initWithViewController:(CDVViewController*)viewController
 {
     self = [super init];
     if (self != nil) {
@@ -44,26 +45,24 @@
     [directoryParts removeLastObject];
 
     NSString* directoryPartsJoined = [directoryParts componentsJoinedByString:@"/"];
-#pragma unused(directoryPartsJoined)
-    NSString* directoryStr = @""; //TODO: //_viewController.wwwFolderName;
+    NSString* directoryStr = _viewController.wwwFolderName;
 
-// TODO:
-//    if ([directoryPartsJoined length] > 0) {
-//        directoryStr = [NSString stringWithFormat:@"%@/%@", _viewController.wwwFolderName, [directoryParts componentsJoinedByString:@"/"]];
-//    }
+    if ([directoryPartsJoined length] > 0) {
+        directoryStr = [NSString stringWithFormat:@"%@/%@", _viewController.wwwFolderName, [directoryParts componentsJoinedByString:@"/"]];
+    }
 
     return [mainBundle pathForResource:filename ofType:@"" inDirectory:directoryStr];
 }
 
 - (void)evalJsHelper2:(NSString*)js
 {
-// TODO: 
-//    CDV_EXEC_LOG(@"Exec: evalling: %@", [js substringToIndex:MIN([js length], 160)]);
-//    NSString* commandsJSON = [_viewController.webView stringByEvaluatingJavaScriptFromString:js];
-//    if ([commandsJSON length] > 0) {
-//        CDV_EXEC_LOG(@"Exec: Retrieved new exec messages by chaining.");
-//    }
-//
+    CDV_EXEC_LOG(@"Exec: evalling: %@", [js substringToIndex:MIN([js length], 160)]);
+    NSString* commandsJSON = [_viewController.webView stringByEvaluatingJavaScriptFromString:js];
+    if ([commandsJSON length] > 0) {
+        CDV_EXEC_LOG(@"Exec: Retrieved new exec messages by chaining.");
+    }
+    
+    // TODO:
 //    [_commandQueue enqueCommandBatch:commandsJSON];
 }
 
@@ -76,6 +75,7 @@
     // execute the callback immediately.
     // Using    (dispatch_get_main_queue()) does *not* fix deadlocks for some reaon,
     // but performSelectorOnMainThread: does.
+
     if (![NSThread isMainThread] || !_commandQueue.currentlyExecuting) {
         [self performSelectorOnMainThread:@selector(evalJsHelper2:) withObject:js waitUntilDone:NO];
     } else {
@@ -121,14 +121,12 @@
 
 - (id)getCommandInstance:(NSString*)pluginName
 {
-    //TODO:
-//    return [_viewController getCommandInstance:pluginName];
+    return [_viewController getCommandInstance:pluginName];
 }
 
 - (void)registerPlugin:(CDVPlugin*)plugin withClassName:(NSString*)className
 {
-    //TODO:
-//    [_viewController registerPlugin:plugin withClassName:className];
+    [_viewController registerPlugin:plugin withClassName:className];
 }
 
 - (void)runInBackground:(void (^)())block
@@ -138,8 +136,8 @@
 
 - (NSString*)userAgent
 {
-    // TODO:
-//    return [_viewController userAgent];
+    //return [_viewController userAgent];
+    return nil;
 }
 
 - (BOOL)URLIsWhitelisted:(NSURL*)url
@@ -152,9 +150,7 @@
 
 - (NSDictionary*)settings
 {
-    // TODO:
-//    return _viewController.settings;
-    return nil;
+    return _viewController.settings;
 }
 
 @end

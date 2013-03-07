@@ -18,15 +18,15 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import "ContentView.h"
+#import "CDVViewController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
 
 	IBOutlet NSWindow* window;
-	IBOutlet ContentView* contentView;
 }
 
-@property (nonatomic, strong) NSWindow* window;
-@property (nonatomic, strong) ContentView* contentView;
+@property (nonatomic, strong) IBOutlet NSWindow* window;
+@property (nonatomic, strong) IBOutlet CDVViewController* viewController;
+
 
 @end

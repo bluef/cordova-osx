@@ -17,20 +17,16 @@
  under the License.
  */
 
-#import <Cocoa/Cocoa.h>
-#import <WebKit/WebKit.h>
+#import "CDVViewController.h"
+#import "CDVCommandDelegateImpl.h"
+#import "CDVCommandQueue.h"
 
-@class CDVSound;
-@class CDVNotification;
-@class CDVConsole;
-@class CDVBridge;
+@interface MainViewController : CDVViewController
 
-@interface WebViewDelegate : NSObject {
-}
+@end
 
-@property (nonatomic, strong) CDVSound* sound;
-@property (nonatomic, strong) CDVNotification* notification;
-@property (nonatomic, strong) CDVConsole* console;
-@property (nonatomic, strong) CDVBridge* bridge;
+@interface MainCommandDelegate : CDVCommandDelegateImpl
+@end
 
+@interface MainCommandQueue : CDVCommandQueue
 @end

@@ -40,17 +40,20 @@
 
 - (NSString*)model
 {
-    return nil;
+    // TODO:
+    return @"";
 }
 
 - (NSString*)uniqueAppInstanceIdentifier
 {
-    return nil;
+    // TODO:
+    return @"";
 }
 
 - (NSString*)systemVersion
 {
-    return nil;
+    // TODO:
+    return @"";
 }
 
 - (void)getDeviceInfo:(CDVInvokedUrlCommand*)command

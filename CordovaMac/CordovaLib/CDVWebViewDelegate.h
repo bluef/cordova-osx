@@ -17,21 +17,18 @@
  under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-#define DEG_EPS 0.001
-#define fequal(a,b) (fabs((a) - (b)) < DEG_EPS)
-#define fequalzero(a) (fabs(a) < DEG_EPS)
+@class CDVConsole;
+@class CDVBridge;
+@class CDVViewController;
 
-@class LoadingView;
-
-@interface Utils : NSObject {
+@interface CDVWebViewDelegate : NSObject {
 }
 
-- (float) titleBarHeight:(NSWindow*)aWindow;
-- (NSString*) pathForResource:(NSString*)resourcepath;
-
-
-+ (Utils*) sharedInstance;
+@property (nonatomic, strong) CDVConsole* console;
+@property (nonatomic, strong) CDVBridge* bridge;
+@property (nonatomic, weak)   CDVViewController* viewController;
 
 @end

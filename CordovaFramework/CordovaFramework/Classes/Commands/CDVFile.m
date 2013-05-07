@@ -17,11 +17,12 @@
  under the License.
  */
 
+
+#import "../Utils/NSArray+Comparisons.h"
+#import "../Utils/NSDictionary+Extensions.h"
+#import "../Utils/NSData+Base64.h"
 #import "CDVFile.h"
-#import "NSArray+Comparisons.h"
-#import "NSDictionary+Extensions.h"
 #import "CDVJSON.h"
-#import "NSData+Base64.h"
 #import "CDVAvailability.h"
 
 extern NSString * const NSURLIsExcludedFromBackupKey __attribute__((weak_import));
@@ -804,6 +805,7 @@ NSString* const kCDVAssetsLibraryPrefix = @"assets-library://";
                         [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                     }
                 };
+                /*
                 ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError* error) {
                     // Retrieving the asset failed for some reason.  Send the appropriate error.
                     result = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[error localizedDescription]];
@@ -812,6 +814,7 @@ NSString* const kCDVAssetsLibraryPrefix = @"assets-library://";
 
                 ALAssetsLibrary* assetsLibrary = [[ALAssetsLibrary alloc] init];
                 [assetsLibrary assetForURL:[NSURL URLWithString:srcFullPath] resultBlock:resultBlock failureBlock:failureBlock];
+                */
                 return;
             } else {
                 // Moving an assets library file is not doable, since we can't remove it.
@@ -971,6 +974,8 @@ NSString* const kCDVAssetsLibraryPrefix = @"assets-library://";
                     [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                 }
             };
+
+            /*
             ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError* error) {
                 // Retrieving the asset failed for some reason.  Send the appropriate error.
                 result = [CDVPluginResult resultWithStatus:CDVCommandStatus_IO_EXCEPTION messageAsString:[error localizedDescription]];
@@ -979,6 +984,7 @@ NSString* const kCDVAssetsLibraryPrefix = @"assets-library://";
 
             ALAssetsLibrary* assetsLibrary = [[ALAssetsLibrary alloc] init];
             [assetsLibrary assetForURL:[NSURL URLWithString:argPath] resultBlock:resultBlock failureBlock:failureBlock];
+            */
             return;
         } else {
             NSFileManager* fileMgr = [[NSFileManager alloc] init];
@@ -1073,6 +1079,7 @@ NSString* const kCDVAssetsLibraryPrefix = @"assets-library://";
                         callback(nil, nil, NOT_FOUND_ERR);
                     }
                 };
+                /*
                 ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError* error) {
                     // Retrieving the asset failed for some reason.  Send the appropriate error.
                     NSLog(@"Error: %@", error);
@@ -1081,6 +1088,7 @@ NSString* const kCDVAssetsLibraryPrefix = @"assets-library://";
 
                 ALAssetsLibrary* assetsLibrary = [[ALAssetsLibrary alloc] init];
                 [assetsLibrary assetForURL:[NSURL URLWithString:path] resultBlock:resultBlock failureBlock:failureBlock];
+                */
             } else {
                 NSString* mimeType = [self getMimeTypeFromPath:path];
                 if (mimeType == nil) {

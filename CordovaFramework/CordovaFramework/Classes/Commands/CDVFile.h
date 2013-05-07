@@ -18,6 +18,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "CDVPlugin.h"
 
 enum CDVFileError {

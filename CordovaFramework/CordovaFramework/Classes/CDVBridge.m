@@ -22,6 +22,8 @@
 #import <Foundation/NSJSONSerialization.h>
 #include <objc/message.h>
 
+#import "Utils/NSDictionary+Extensions.h"
+
 #import "CDVBridge.h"
 #import "CDVViewController.h"
 
@@ -30,7 +32,7 @@
 - (BOOL) isArray:(id)item
 {
     id win = [self.webView windowScriptObject];
-    NSNumber* result = [win callWebScriptMethod:@"CordovaBridgeUtil.isArray" withArguments:[NSArray arrayWithObject:item]];
+    NSNumber* result = [win callWebScriptMethod:@"CordovaIsArray" withArguments:[NSArray arrayWithObject:item]];
 
     return [result boolValue];
 }
@@ -38,7 +40,7 @@
 - (BOOL) isDictionary:(id)item
 {
     id win = [self.webView windowScriptObject];
-    NSNumber* result = [win callWebScriptMethod:@"CordovaBridgeUtil.isObject" withArguments:[NSArray arrayWithObject:item]];
+    NSNumber* result = [win callWebScriptMethod:@"CordovaIsObject" withArguments:[NSArray arrayWithObject:item]];
     return [result boolValue];
 }
 
@@ -48,7 +50,7 @@
 
     id win = [self.webView windowScriptObject];
 
-    WebScriptObject* keysObject = [win callWebScriptMethod:@"CordovaBridgeUtil.getDictionaryKeys" withArguments:[NSArray arrayWithObject:webScriptObject]];
+    WebScriptObject* keysObject = [win callWebScriptMethod:@"CordovaGetDictionaryKeys" withArguments:[NSArray arrayWithObject:webScriptObject]];
     NSArray* keys = [self convertWebScriptObjectToNSArray:keysObject];
     NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithCapacity:[keys count]];
 
@@ -69,12 +71,18 @@
     NSMutableArray *a = [NSMutableArray array];
     for (unsigned i = 0; i < count; i++) {
         id item = [webScriptObject webScriptValueAtIndex:i];
+        if (!item) {
+            item = [[NSDictionary alloc] init];
+        }
         if ([item isKindOfClass:[WebScriptObject class]]) {
             if ([self isArray:item]) {
                 [a addObject:[self convertWebScriptObjectToNSArray:item]];
             } else if ([self isDictionary:item]) {
                 [a addObject:[self convertWebScriptObjectToNSDictionary:item]];
-            };
+            } else {
+                NSLog(@"unknown type");
+                [a addObject:[self convertWebScriptObjectToNSDictionary:item]];
+            }
         } else {
             [a addObject:item];
         }
@@ -85,12 +93,11 @@
 
 - (void) registerJavaScriptHelpers
 {
-    NSString* cordovaBridgeUtil = @"CordovaBridgeUtil = {};";
-    NSString* isArray = [NSString stringWithFormat:@"CordovaBridgeUtil.isArray = function(obj) { return obj.constructor == Array; };"];
-    NSString* isObject = [NSString stringWithFormat:@"CordovaBridgeUtil.isObject = function(obj) { return obj.constructor == Object; };"];
+    NSString* isArray = [NSString stringWithFormat:@"var CordovaIsArray = function(obj) { return obj.constructor == Array; };"];
+    NSString* isObject = [NSString stringWithFormat:@"var CordovaIsObject = function(obj) { return obj.constructor == Object; };"];
     NSString* dictionaryKeys = [NSString stringWithFormat:
                                 @" \
-                                CordovaBridgeUtil.getDictionaryKeys = function(obj) { \
+                                CordovaGetDictionaryKeys = function(obj) { \
                                     var a = []; \
                                     for (var key in obj) { \
                                         if (!obj.hasOwnProperty(key)) { \
@@ -103,7 +110,6 @@
                                 ];
     
     id win = [self.webView windowScriptObject];
-    [win evaluateWebScript:cordovaBridgeUtil];
     [win evaluateWebScript:isArray];
     [win evaluateWebScript:isObject];
     [win evaluateWebScript:dictionaryKeys];

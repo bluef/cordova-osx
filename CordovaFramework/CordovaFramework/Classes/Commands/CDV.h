@@ -26,11 +26,12 @@
 #import "CDVPlugin.h"
 #import "CDVDevice.h"
 #import "CDVFile.h"
+#import "CDVFileTransfer.h"
 //#import "CDVSound.h"
 
 #import "ShellUtils.h"
 
-#import "NSArray+Comparisons.h"
-#import "NSData+Base64.h"
-#import "NSDictionary+Extensions.h"
-#import "NSMutableArray+QueueAdditions.h"
+#import "../Utils/NSArray+Comparisons.h"
+#import "../Utils/NSData+Base64.h"
+#import "../Utils/NSDictionary+Extensions.h"
+#import "../Utils/NSMutableArray+QueueAdditions.h"
